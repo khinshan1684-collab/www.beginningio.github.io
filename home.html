@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Beginning.io - IT Solutions</title>
+
+  <!-- Font Awesome CDN for social icons -->
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --purple: #5a0d8a; /* dimmed purple */
+      --black: #0a001f;
+      --white: #ffffff;
+      --glass-bg: rgba(255, 255, 255, 0.1);
+      --glass-border: rgba(255, 255, 255, 0.25);
+      --transition: 0.3s ease;
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: var(--font-family);
+    }
+
+    html, body {
+      height: 100%;
+      background: linear-gradient(270deg, #0a001f, #21004d, #0a001f, #3a007d);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
+      color: var(--white);
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    @keyframes gradientBG {
+      0% {background-position:0% 50%;}
+      50% {background-position:100% 50%;}
+      100% {background-position:0% 50%;}
+    }
+
+    /* Navbar */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 40px;
+      z-index: 1000;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 900;
+      font-size: 1.7rem;
+      color: var(--purple);
+      user-select: none;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 25px;
+      list-style: none;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .nav-links li a {
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 6px 10px;
+      border-radius: 5px;
+      transition: background-color var(--transition);
+    }
+    .nav-links li a:hover {
+      background-color: var(--purple);
+    }
+    /* ================= NAV BUTTONS ================= */
+.nav-btn,
+.logout-btn {
+  padding: 10px 18px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  transition: all 0.3s ease;
+}
+
+/* ================= HOVER EFFECT ================= */
+.nav-btn:hover,
+.logout-btn:hover {
+  background: rgba(155, 122, 255, 0.35); /* dim purple */
+  box-shadow: 0 0 18px rgba(155, 122, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* ================= LOGOUT BUTTON ================= */
+.logout-btn {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ================= MOBILE BUTTON SIZE ================= */
+@media (max-width: 768px) {
+  .nav-btn,
+  .logout-btn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+
+    .auth-buttons {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    .auth-buttons a {
+      padding: 8px 18px;
+      border-radius: 25px;
+      font-weight: 600;
+      border: 2px solid var(--purple);
+      background-color: transparent;
+      color: var(--white);
+      text-decoration: none;
+      transition: background-color var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+    .auth-buttons a:hover {
+      background-color: var(--purple);
+      color: #fff;
+      box-shadow: 0 0 15px var(--purple);
+    }
+
+  .hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+}
+
+.hamburger span{
+  width:26px;
+  height:3px;
+  background:white;
+}
+
+/* Mobile menu */
+.mobile-menu{
+  position:fixed;
+  top:0;
+  left:-260px;
+  width:260px;
+  height:100vh;
+  background:var(--glass);
+  backdrop-filter:blur(14px);
+  padding:80px 20px;
+  transition:.3s;
+}
+
+.mobile-menu.active{left:0;}
+
+.mobile-menu a{
+  display:block;
+  margin-bottom:18px;
+  color:white;
+  text-decoration:none;
+  font-weight:600;
+}
+    .mobile-menu{
+    position:fixed;
+    top:0;
+    left:-260px;
+    width:260px;
+    height:100vh;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(16px);
+    padding:90px 25px;
+    transition:.35s;
+    z-index:999;
+    }
+
+    .mobile-menu.active{
+    left:0;
+    }
+    
+
+    /* Main content */
+    main {
+      padding: 120px 20px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .main-title {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 900;
+      color: var(--purple);
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px var(--purple);
+      user-select: none;
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
+    }
+
+    .glass-btn {
+      display: inline-block;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 14px 40px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: black;
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition), box-shadow var(--transition);
+      user-select: none;
+      margin-bottom: 60px;
+      animation: fadeInUp 1.3s ease forwards;
+      opacity: 0;
+      box-shadow: 0 0 8px rgba(255 255 255 / 0.1);
+      text-decoration: none;
+    }
+    .glass-btn:hover {
+      background-color: var(--purple);
+      color: white;
+      box-shadow: 0 0 25px var(--purple);
+    }
+
+    .services-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 40px;
+      user-select: none;
+      animation: fadeInUp 1.6s ease forwards;
+      opacity: 0;
+    }
+
+    .services-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      margin-bottom: 40px;
+      animation: fadeInUp 1.9s ease forwards;
+      opacity: 0;
+    }
+
+    .service-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border: 1.5px solid var(--glass-border);
+      border-radius: 18px;
+      padding: 25px 20px;
+      box-shadow: 0 0 15px rgba(106, 13, 173, 0.3);
+      text-align: left;
+      color: white;
+      transition: transform 0.3s ease;
+      cursor: default;
+      user-select: none;
+    }
+    .service-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 0 30px var(--purple);
+    }
+    .service-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--purple);
+    }
+    .service-card p {
+      font-size: 1rem;
+      line-height: 1.4;
+      color: #ddd;
+    }
+
+    .show-more-btn {
+      display: inline-block;
+      background: var(--glass-bg);
+      backdrop-filter: blur(10px);
+      border: 2px solid var(--glass-border);
+      border-radius: 40px;
+      padding: 12px 38px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: white;
+      cursor: pointer;
+      transition: background-color var(--transition), box-shadow var(--transition);
+      user-select: none;
+      margin-bottom: 70px;
+      box-shadow: 0 0 8px rgba(255 255 255 / 0.1);
+      text-decoration: none;
+    }
+    .show-more-btn:hover {
+      background-color: var(--purple);
+      box-shadow: 0 0 25px var(--purple);
+    }
+
+    .about-us {
+      max-width: 900px;
+      margin: 60px auto 40px;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: white;
+      padding: 0 15px;
+      user-select: none;
+      animation: fadeInUp 2.2s ease forwards;
+      opacity: 0;
+      text-align: center;
+    }
+
+    footer {
+      background: linear-gradient(270deg, #0a001f, #21004d, #0a001f, #3a007d);
+      background-size: 800% 800%;
+      animation: gradientBG 20s ease infinite;
+      color: white;
+      padding: 50px 20px 40px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .team-container {
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .team-member {
+      background: var(--glass-bg);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      padding: 20px;
+      width: 220px;
+      box-shadow: 0 0 15px rgba(255 255 255 / 0.15);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: white;
+      user-select: none;
+      transition: transform 0.3s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 0 30px #fff;
+    }
+    .team-member img {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+      border: 3px solid var(--purple);
+    }
+    .member-name {
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 5px;
+      color: white;
+    }
+    .member-email {
+      font-size: 0.9rem;
+      color: white;
+      margin-bottom: 5px;
+      word-break: break-word;
+    }
+    .member-position {
+      font-size: 0.9rem;
+      font-style: italic;
+      color: white;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      font-size: 2rem;
+      margin-top: 10px;
+      user-select: none;
+    }
+    .social-icons a {
+      color: white;
+      transition: color var(--transition);
+      text-decoration: none;
+    }
+    .social-icons a:hover {
+      color: #b392ff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 10px 20px;
+      }
+      .nav-links,
+      .auth-buttons {
+        display: none;
+      }
+      .hamburger {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 25px;
+        height: 20px;
+        cursor: pointer;
+      }
+    }
+    @media (max-width: 600px) {
+      nav {
+        padding: 10px 20px;
+      }
+      .team-container {
+        justify-content: center;
+      }
+      .team-member {
+        width: 160px;
+        padding: 15px;
+      }
+    }
+    @media (max-width: 480px) {
+      nav {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .main-title {
+        font-size: 3.5rem;
+      }
+      .services-container {
+        grid-template-columns: 1fr;
+      }
+      main {
+        padding: 100px 15px 40px;
+      }
+    }
+
+    /* Animation for fade in */
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home" class="logo" aria-label="Beginning.io homepage link">Beginning.io</a>
+
+   <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+   </div>
+
+    <ul class="nav-links" role="menubar">
+      <li><a href="#home" role="menuitem">Home</a></li>
+      <li><a href="projects.html" role="menuitem">Projects</a></li>
+      <li><a href="#services" role="menuitem">Services</a></li>
+      <li><a href="#about" role="menuitem">About Us</a></li>
+      <li><a href="support.html" role="menuitem">Customer Support</a></li>
+      </ul>
+
+        <div style="display:flex;gap:15px;align-items:center;">
+
+        <!-- LOGIN / SIGNUP -->
+        <div id="authButtons">
+          <a href="login.html" class="nav-btn">Login</a>
+          <a href="signup.html" class="nav-btn">Signup</a>
+
+        </div>
+
+        <!-- LOGOUT -->
+        <div id="logoutSection" style="display:none;">
+        <button class="logout-btn" onclick="logout()">Logout</button>
+        </div>
+        
+
+
+      
+        
+
+      </nav>
+<div class="mobile-menu" id="mobile-Menu">
+  <a href="home.html">Home</a>
+  <a href="home.html#about">About Us</a>
+  <a href="projects.html">Projects</a>
+  <a href="support.html">Customer Support</a>
+  <a href="login.html">Login</a>
+  <a href="signup.html">Signup</a>
+</div>
+
+  <main id="home">
+    <h1 class="main-title">Beginning.io</h1>
+    <a href="projects.html" class="glass-btn" aria-label="Want to see projects">Want to see projects</a>
+
+    <h2 class="services-title" id="services">What services we give</h2>
+
+    <div class="services-container">
+      <div class="service-card" tabindex="0">
+        <h3>Web Development</h3>
+        <p>Building responsive, modern websites with clean code and fast performance.</p>
+      </div>
+      <div class="service-card" tabindex="0">
+        <h3>Front-end Development</h3>
+        <p>Creating engaging user interfaces with the latest frameworks and best practices.</p>
+      </div>
+      <div class="service-card" tabindex="0">
+        <h3>Back-end Development</h3>
+        <p>Developing robust server-side applications ensuring security and scalability.</p>
+      </div>
+      <div class="service-card" tabindex="0">
+        <h3>Quality Assurance</h3>
+        <p>Testing software rigorously to ensure bug-free, reliable applications.</p>
+      </div>
+      <div class="service-card" tabindex="0">
+        <h3>Graphic Designing</h3>
+        <p>Designing logos, branding, and marketing materials that captivate your audience.</p>
+      </div>
+    </div>
+
+    <a href="projects.html" class="show-more-btn" aria-label="Show more services">Show More</a>
+  </main>
+
+  <!-- About Us Section -->
+  <section class="about-us" id="about">
+    <h2>About Us</h2>
+    <p>
+      Beginning.io is a modern IT solutions platform focused on delivering
+      high-quality digital services including web development, frontend and
+      backend engineering, UI/UX design, quality assurance, and technical support.
+      <br><br>
+      Our mission is to help businesses and individuals turn ideas into powerful,
+      scalable, and secure digital products using modern technologies and clean
+      design principles.
+    </p>
+  </section>
+
+  <footer>
+    <div class="team-container" id="about">
+      <div class="team-member" tabindex="0">
+        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Member Photo">
+        <div class="member-name">Khinshan Tariq</div>
+        <div class="member-email">khinshan@example.com</div>
+        <div class="member-position">Founder & Developer</div>
+      </div>
+      <div class="team-member" tabindex="0">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Member Photo">
+        <div class="member-name">Ayesha Khan</div>
+        <div class="member-email">ayesha@example.com</div>
+        <div class="member-position">UI/UX Designer</div>
+      </div>
+      <div class="team-member" tabindex="0">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Member Photo">
+        <div class="member-name">Ali Raza</div>
+        <div class="member-email">ali@example.com</div>
+        <div class="member-position">QA Engineer</div>
+      </div>
+    </div>   
+  </footer>
+  <script>
+function toggleMenu(){
+  const menu = document.getElementById("mobile-Menu");
+  menu.classList.toggle("active");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const isLoggedIn = localStorage.getItem("isLoggedIn");
+
+  console.log("Login status:", isLoggedIn); // DEBUG
+
+  if (isLoggedIn === "true") {
+    document.getElementById("authButtons").style.display = "none";
+    document.getElementById("logoutSection").style.display = "block";
+  } else {
+    document.getElementById("authButtons").style.display = "block";
+    document.getElementById("logoutSection").style.display = "none";
+  }
+});
+
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "home.html";
+}
+
+
+</script>
+
+</body>
+       

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Beginning.io</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* VARIABLES */
+:root{
+  --purple:#6a0dad;
+  --bg1:#000000;
+  --bg2:#2a0038;
+  --text:#ffffff;
+}
+
+/* LIGHT MODE */
+body.light{
+  --bg1:#f0f0f0;
+  --bg2:#cbb6ff;
+  --text:#000000;
+}
+
+/* RESET */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:"Segoe UI",sans-serif;
+}
+
+/* BODY */
+body{
+  height:100vh;
+  overflow:hidden;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2));
+  background-size:400% 400%;
+  animation:bgMove 18s ease infinite;
+  color:var(--text);
+}
+
+/* BACKGROUND */
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* TOGGLE */
+.toggle{
+  position:fixed;
+  top:18px;
+  right:22px;
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:1.3rem;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* LOGO */
+.logo{
+  position:fixed;
+  top:20px;
+  left:25px;
+  font-size:1.5rem;
+  font-weight:800;
+  color:var(--purple);
+  z-index:10;
+}
+
+/* SCREEN */
+.screen{
+  position:absolute;
+  width:100%;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  transition:transform 0.7s ease-in-out;
+}
+
+/* TITLE */
+.title{
+  font-size:clamp(3.5rem,8vw,6rem);
+  font-weight:900;
+}
+
+.title .welcome{
+  display:block;
+  opacity:0.9;
+}
+
+.title .brand{
+  display:block;
+  color:var(--purple);
+  text-shadow:0 0 30px rgba(106,13,173,0.7);
+}
+
+/* BUTTONS */
+.buttons{
+  margin-top:45px;
+  display:flex;
+  gap:22px;
+}
+
+.buttons a{
+  text-decoration:none;
+  padding:16px 38px;
+  border-radius:50px;
+  border:2px solid var(--purple);
+  color:var(--text);
+  font-size:1.1rem;
+  transition:0.3s;
+}
+
+.buttons a:hover{
+  background:var(--purple);
+  color:white;
+  box-shadow:0 0 25px var(--purple);
+}
+
+/* SWIPE */
+.swipe{
+  position:absolute;
+  bottom:40px;
+}
+
+.arrow{
+  font-size:2.6rem;
+  animation:bounce 1.2s infinite;
+}
+
+.swipe-text{
+  animation:blink 1.5s infinite;
+}
+
+/* ANIMATIONS */
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-14px)}
+}
+@keyframes blink{
+  0%,100%{opacity:1}
+  50%{opacity:0.3}
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOGGLE -->
+<div class="toggle" id="toggle">🌙</div>
+
+<!-- LOGO -->
+<div class="logo">Beginning.io</div>
+
+<!-- WELCOME SCREEN -->
+<div class="screen" id="welcome">
+  <div class="title">
+    <span class="welcome">Welcome to</span>
+    <span class="brand">Beginning.io</span>
+  </div>
+
+  <div class="buttons">
+    <a href="login.html">Login</a>
+    <a href="signup.html">Signup</a>
+  </div>
+
+  <div class="swipe">
+    <div class="arrow">↑</div>
+    <div class="swipe-text">Swipe Up</div>
+  </div>
+</div>
+
+<script>
+let startY = 0;
+let triggered = false;
+const welcome = document.getElementById("welcome");
+const toggle = document.getElementById("toggle");
+
+/* LOAD THEME */
+if(localStorage.getItem("theme")==="light"){
+  document.body.classList.add("light");
+  toggle.textContent="☀️";
+}
+
+/* TOGGLE THEME */
+toggle.onclick=()=>{
+  document.body.classList.toggle("light");
+  const isLight=document.body.classList.contains("light");
+  toggle.textContent=isLight?"☀️":"🌙";
+  localStorage.setItem("theme",isLight?"light":"dark");
+};
+
+/* SWIPE FUNCTION */
+function swipeUp(){
+  if(triggered) return;
+  triggered=true;
+
+  welcome.style.transform="translateY(-100%)";
+
+  setTimeout(()=>{
+    window.location.href="home.html";
+  },700);
+}
+
+/* TOUCH */
+document.addEventListener("touchstart",e=>startY=e.touches[0].clientY);
+document.addEventListener("touchend",e=>{
+  if(startY-e.changedTouches[0].clientY>80) swipeUp();
+});
+
+/* MOUSE DRAG */
+document.addEventListener("mousedown",e=>startY=e.clientY);
+document.addEventListener("mouseup",e=>{
+  if(startY-e.clientY>80) swipeUp();
+});
+
+/* SCROLL */
+document.addEventListener("wheel",e=>{
+  if(e.deltaY<0) swipeUp();
+});
+</script>
+
+</body>
+</html>

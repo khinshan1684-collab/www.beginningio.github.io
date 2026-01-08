@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Request Received | Beginning.io</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+:root{
+  --purple:#5a0d8a;
+  --glass:rgba(255,255,255,.12);
+  --border:rgba(255,255,255,.25);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif;}
+
+body{
+  background:linear-gradient(270deg,#0a001f,#21004d,#0a001f,#3a007d);
+  background-size:800% 800%;
+  animation:bgMove 18s ease infinite;
+  color:white;
+}
+
+@keyframes bgMove{
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+/* NAVBAR SAME */
+nav{
+  position:fixed;
+  top:0;
+  width:100%;
+  padding:12px 40px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  color:var(--purple);
+  font-size:1.6rem;
+  font-weight:900;
+  text-decoration:none;
+}
+
+main{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding-top:100px;
+}
+
+.box{
+  background:var(--glass);
+  backdrop-filter:blur(18px);
+  border:1px solid var(--border);
+  border-radius:24px;
+  padding:45px;
+  text-align:center;
+  max-width:500px;
+}
+
+.box i{
+  font-size:4rem;
+  color:var(--purple);
+  margin-bottom:20px;
+}
+
+.box h1{margin-bottom:10px;}
+.box p{opacity:.9;}
+
+.box a{
+  display:inline-block;
+  margin-top:20px;
+  padding:12px 30px;
+  background:var(--purple);
+  color:white;
+  text-decoration:none;
+  border-radius:30px;
+  font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="home.html" class="logo">Beginning.io</a>
+</nav>
+
+<main>
+  <div class="box">
+    <i class="fa-solid fa-circle-check"></i>
+    <h1>Complaint Received</h1>
+    <p>Thank you for your feedback.</p>
+    <p>Your issue will be resolved within <strong>24 hours</strong>.</p>
+    <p><strong>Ticket ID:</strong> BG-1024</p>
+    <a href="home.html">Back to Home</a>
+  </div>
+</main>
+
+</body>
+</html>
